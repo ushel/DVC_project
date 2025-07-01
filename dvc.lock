@@ -5,18 +5,58 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: cde336bd378a5b283d7f148e37722ba8
-      size: 210
+      md5: 87739a10b2244a8ca31d855d15f6a5b7
+      size: 282
     - path: src/stage_01_load_save.py
       hash: md5
       md5: 53578ba5d5f69dc2ade219082bed07b2
       size: 1182
     - path: src/utils/all_utils.py
       hash: md5
-      md5: 0b47d89f4c370fdd886c39b63726e478
-      size: 349
+      md5: 8375ffe2925c14fb62ad5a7b2e559080
+      size: 506
     outs:
     - path: artifacts/raw_local_dir/data.csv
       hash: md5
       md5: a990034a1ac4f327cb8f1e20ef102208
       size: 93599
+  always_run:
+    cmd: python rough/test.py
+    deps:
+    - path: rough/test.py
+      hash: md5
+      md5: 3308beb70e7d7096a32ab5bcb41629d7
+      size: 227
+    outs:
+    - path: rough/test.txt
+      hash: md5
+      md5: cc7ea3e6c89af7546f272cc16767a4a4
+      size: 22
+  split_data:
+    cmd: python src/stage_02_split_data.py --config=config/config.yaml --params=params.yaml
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 87739a10b2244a8ca31d855d15f6a5b7
+      size: 282
+    - path: src/stage_02_split_data.py
+      hash: md5
+      md5: 792d7074bb5e13df2f4721485133dac8
+      size: 1937
+    - path: src/utils/all_utils.py
+      hash: md5
+      md5: 8375ffe2925c14fb62ad5a7b2e559080
+      size: 506
+    params:
+      params.yaml:
+        base.random_state: 42
+        base.test_size: 0.3
+    outs:
+    - path: artifacts\split_data_dir\test.csv
+      hash: md5
+      md5: 533f456b95a9bfce5b74f7837f41b8cd
+      size: 28169
+    - path: artifacts\split_data_dir\train.csv
+      hash: md5
+      md5: ee5ebf7a4f4234d734d86f2bafbe8776
+      size: 65577
