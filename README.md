@@ -44,3 +44,8 @@ git add dvc.lock 'artifacts\raw_local_dir\.gitignore'
 if you want any stage to run always we don't add any dependencies
 
 dvc only tracks the changes in dependencies, params... so if you want to track changes in always run you will need to add dependencies...
+
+
+dvc dag
+
+to exit pipeline press css q type css and then q
